@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retro Station - Premium Gaming Devices</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/store.css" />
+
+  <style>
+    /* ================= RETRO STATION COLOR PALETTE ================= */
+    :root {
+      --primary-cyan: #00D9FF;
+      --primary-purple: #7D3FFF;
+      --secondary-purple: #5B21B6;
+      --dark-bg: #0A0E27;
+      --dark-secondary: #1a1f3a;
+      --accent-gold: #FFD700;
+      --accent-pink: #FF006E;
+      --text-light: #E0E0E0;
+      --text-white: #FFFFFF;
+      --border-neon: rgba(0, 217, 255, 0.3);
+      --glow-cyan: 0 0 20px rgba(0, 217, 255, 0.6);
+      --glow-purple: 0 0 20px rgba(125, 63, 255, 0.6);
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #1a0b2e 100%);
+      color: var(--text-light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar-premium {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid var(--border-neon);
+      box-shadow: 0 10px 40px rgba(0, 217, 255, 0.1);
+      animation: navbarEnter 0.8s ease forwards;
+      position: fixed;
+      top: 0;
+      z-index: 1100;
+    }
+
+    @keyframes navbarEnter {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar-brand {
+      position: relative;
+      font-weight: 800;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      letter-spacing: 0.5px;
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+
+    .navbar-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 18px rgba(0, 217, 255, 0.35);
+      border: 1px solid rgba(0, 217, 255, 0.25);
+    }
+
+    .navbar-brand i {
+      font-size: 1.8rem;
+      color: var(--primary-cyan);
+      animation: iconGlow 2s ease-in-out infinite;
+      text-shadow: var(--glow-cyan);
+    }
+
+    @keyframes iconGlow {
+      0%, 100% { text-shadow: var(--glow-cyan); }
+      50% { text-shadow: 0 0 30px rgba(0, 217, 255, 0.8); }
+    }
+
+    .navbar-brand::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+      transform: skewX(-20deg);
+      transition: 0.6s;
+    }
+
+    .navbar-brand:hover::after { left: 130%; }
+    .navbar-brand:hover { transform: scale(1.05); text-shadow: 0 0 8px rgba(0, 217, 255, 0.4); }
+    .navbar-brand:hover i { transform: rotate(10deg) scale(1.1); color: var(--accent-gold); }
+    .navbar-brand:active { transform: scale(0.97); }
+
+    .navbar-premium .nav-link {
+      color: var(--text-light);
+      font-weight: 600;
+      margin: 0 0.8rem;
+      position: relative;
+      transition: all var(--transition);
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-premium .nav-link:hover,
+    .navbar-premium .nav-link.active {
+      color: var(--primary-cyan);
+      text-shadow: var(--glow-cyan);
+      transform: translateY(-1px);
+    }
+
+    .navbar-premium .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0%; height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
+      transition: width var(--transition);
+    }
+
+    .navbar-premium .nav-link:hover::after,
+    .navbar-premium .nav-link.active::after { width: 100%; }
+
+    /* ================= HERO SECTION ================= */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a0b2e 50%, #2d0f4a 100%);
+    }
+
+    .hero-background {
+      position: absolute;
+      inset: 0;
+      opacity: 0.3;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 217, 255, 0.2), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(125, 63, 255, 0.2), transparent 50%);
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeInUp 1.2s ease forwards;
+      max-width: 800px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo {
+      width: 200px; height: 200px;
+      margin: 0 auto 2rem;
+      animation: logoRotate 20s linear infinite;
+      filter: drop-shadow(0 0 30px rgba(0, 217, 255, 0.45));
+    }
+
+    .hero-logo-frame {
+      position: relative;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(0, 217, 255, 0.55);
+      box-shadow: 0 0 24px rgba(0, 217, 255, 0.35), inset 0 0 18px rgba(125, 63, 255, 0.18);
+    }
+
+    .hero-logo-img {
+      width: 100%; height: 100%; display: block;
+      object-fit: cover;
+      filter: saturate(1.15) contrast(1.05);
+    }
+
+    @keyframes logoRotate {
+      0% { transform: rotateZ(0deg); }
+      100% { transform: rotateZ(360deg); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-purple) 50%, var(--accent-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3)); }
+      50% { filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.6)); }
+    }
+
+    .hero-tagline {
+      font-size: 1.3rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+      50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary-neon, .btn-secondary-neon {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary-neon {
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      color: var(--text-white);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary-neon:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px rgba(0, 217, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary-neon {
+      background: transparent;
+      border: 2px solid var(--primary-cyan);
+      color: var(--primary-cyan);
+    }
+
+    .btn-secondary-neon:hover {
+      background: var(--primary-cyan);
+      color: var(--dark-bg);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
+    }
+
+    /* ================= HOW TO ORDER STEPPER (above products) ================= */
+    .order-stepper-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(180deg, rgba(37, 211, 102, 0.03), transparent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stepper-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .stepper-line {
+      position: absolute;
+      top: 35px; left: calc(10% + 25px); right: calc(10% + 25px);
+      height: 3px;
+      background: linear-gradient(90deg, #25d366, #128c7e);
+      opacity: 0.25;
+      z-index: 0;
+    }
+
+    .stepper-line::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, #25d366, #128c7e);
+      transform-origin: left;
+      animation: lineGrow 1.8s ease-out forwards;
+      opacity: 1;
+      z-index: 1;
+    }
+
+    @keyframes lineGrow {
+      0% { transform: scaleX(0); }
+      100% { transform: scaleX(1); }
+    }
+
+    .step-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: stepFadeIn 0.6s ease forwards;
+    }
+
+    .step-item:nth-child(1) { animation-delay: 0.2s; }
+    .step-item:nth-child(2) { animation-delay: 0.5s; }
+    .step-item:nth-child(3) { animation-delay: 0.8s; }
+    .step-item:nth-child(4) { animation-delay: 1.1s; }
+
+    @keyframes stepFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-circle {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1e2a4a, #0e1533);
+      border: 3px solid #25d366;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.25), inset 0 0 10px rgba(37, 211, 102, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem; font-weight: 900; color: #25d366;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+      animation: pulseCircle 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulseCircle {
+      0%, 100% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.25); }
+      50% { box-shadow: 0 0 35px rgba(37, 211, 102, 0.5); }
+    }
+
+    .step-item:hover .step-circle {
+      transform: scale(1.1);
+      border-color: #00ff88;
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+    }
+
+    .step-title {
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--primary-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-description {
+      color: var(--text-light);
+      font-size: 0.95rem; line-height: 1.7;
+      max-width: 200px; margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .stepper-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+      .stepper-line { display: none; }
+      .step-item {
+        flex-direction: row;
+        text-align: left;
+        width: 100%; max-width: 360px;
+        gap: 1.5rem;
+      }
+      .step-circle { margin-bottom: 0; }
+
+      #productsGrid { --bs-gutter-x: 0.65rem; --bs-gutter-y: 0.65rem; }
+      #productsGrid .product-card { height: 100%; border-width: 1px; border-radius: 13px; }
+      #productsGrid .product-image { height: 145px; }
+      #productsGrid .product-info {
+        display: flex; flex-direction: column; min-height: 174px; padding: 0.85rem 0.65rem;
+      }
+      #productsGrid .product-name {
+        min-height: 2.5em; margin-bottom: 0.4rem; font-size: 0.78rem; line-height: 1.25;
+      }
+      #productsGrid .product-description { display: none; }
+      #productsGrid .product-price { margin-bottom: 0.7rem; font-size: 1rem; }
+      #productsGrid .product-actions { display: block; margin-top: auto; }
+      #productsGrid .btn-order-product { padding: 0.65rem 0.3rem; font-size: 0.7rem; }
+      #productsGrid .product-badge {
+        top: 0.55rem; right: 0.45rem; max-width: calc(100% - 0.9rem);
+        padding: 0.3rem 0.48rem; overflow: hidden; font-size: 0.52rem;
+        letter-spacing: 0.03em; text-overflow: ellipsis; white-space: nowrap;
+      }
+    }
+
+    /* ================= FEATURED PRODUCTS ================= */
+    .featured-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(125, 63, 255, 0.05) 100%);
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    .section-title {
+      font-size: 3rem; font-weight: 900; text-transform: uppercase;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+    }
+
+    .product-card {
+      background: linear-gradient(135deg, rgba(26, 31, 58, 0.8), rgba(93, 33, 182, 0.3));
+      border: 2px solid var(--border-neon);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all var(--transition);
+      position: relative;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      animation: cardEnter 0.8s ease forwards;
+    }
+
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+      z-index: 1;
+    }
+
+    .product-card:hover::before { opacity: 1; }
+    .product-card:hover {
+      transform: translateY(-15px);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3), inset 0 0 20px rgba(0, 217, 255, 0.1);
+    }
+
+    .product-image {
+      width: 100%; height: 280px;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(125, 63, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 85%; height: 85%;
+      object-fit: contain;
+      transition: transform var(--transition);
+      position: relative; z-index: 2;
+      filter: drop-shadow(0 10px 25px rgba(0, 217, 255, 0.3));
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.15) translateY(-10px) rotate(5deg);
+      filter: drop-shadow(0 15px 35px rgba(0, 217, 255, 0.5));
+    }
+
+    .product-info {
+      padding: 2rem 1.5rem;
+      position: relative; z-index: 2;
+    }
+
+    .product-name {
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--primary-cyan);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all var(--transition);
+    }
+
+    .product-card:hover .product-name {
+      color: var(--accent-gold);
+      text-shadow: var(--glow-cyan);
+    }
+
+    .product-description {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .product-price {
+      font-size: 1.8rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-gold), var(--primary-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: linear-gradient(135deg, var(--accent-pink), var(--primary-purple));
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 3;
+      box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+      animation: badgeBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes badgeBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .btn-view-details, .btn-add-cart, .btn-order-product {
+      width: 100%;
+      padding: 0.85rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+    }
+
+    .btn-order-product {
+      gap: 0.45rem;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary-purple), var(--accent-pink));
+      box-shadow: 0 0 22px rgba(125, 63, 255, 0.28);
+    }
+
+    .btn-order-product:hover {
+      transform: translateY(-2px);
+      color: #fff;
+      box-shadow: 0 0 30px rgba(255, 0, 110, 0.35);
+    }
+
+    .btn-view-details {
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-add-cart {
+      background: transparent;
+      border: 2px solid var(--primary-cyan);
+      color: var(--primary-cyan);
+    }
+
+    .btn-add-cart:hover {
+      background: var(--primary-cyan);
+      color: var(--dark-bg);
+    }
+
+    /* ================= TESTIMONIALS ================= */
+    .testimonials-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), transparent);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(93, 33, 182, 0.2), rgba(26, 31, 58, 0.7));
+      border: 2px solid var(--border-neon);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all var(--transition);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px; left: 10px;
+      font-size: 4rem;
+      color: var(--primary-cyan);
+      opacity: 0.3;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 20px 50px rgba(0, 217, 255, 0.2);
+    }
+
+    .testimonial-text {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .author-info h4 {
+      color: var(--primary-cyan);
+      font-weight: 800;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .author-info p {
+      color: var(--accent-gold);
+      font-size: 0.85rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .rating {
+      color: var(--accent-gold);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ================= FOOTER ================= */
+    .footer {
+      background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(26, 20, 50, 0.95));
+      border-top: 2px solid var(--border-neon);
+      backdrop-filter: blur(10px);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(0, 217, 255, 0.1), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(125, 63, 255, 0.1), transparent 50%);
+      pointer-events: none;
+    }
+
+    .footer-content { position: relative; z-index: 2; }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      font-weight: 900;
+    }
+
+    .footer-brand p { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
+    .footer-section h4 { color: var(--primary-cyan); font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .footer-links { list-style: none; padding-left: 0; }
+    .footer-links li { margin-bottom: 0.8rem; }
+    .footer-links a { color: var(--text-light); text-decoration: none; transition: all var(--transition); font-weight: 500; }
+    .footer-links a:hover { color: var(--primary-cyan); text-shadow: 0 0 10px rgba(0, 217, 255, 0.4); }
+    .social-links { display: flex; gap: 1rem; margin: 1.5rem 0; }
+    .social-links a { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple)); display: flex; align-items: center; justify-content: center; color: white; transition: all var(--transition); }
+    .social-links a:hover { transform: translateY(-5px) scale(1.1); }
+    .footer-bottom { border-top: 1px solid var(--border-neon); padding-top: 2rem; margin-top: 3rem; text-align: center; }
+    .footer-bottom p { margin: 0; }
+
+    /* Pixel subtitle */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    .pixel-subtitle-wrap { margin: 0 auto 2.5rem; max-width: 920px; display: grid; place-items: center; }
+    .pixel-subtitle-line { padding: 6px 4px; text-align: center; filter: drop-shadow(0 0 12px rgba(0,217,255,0.18)) drop-shadow(0 0 18px rgba(125,63,255,0.14)); animation: breatheGlow 2.8s ease-in-out infinite; }
+    .pixel-subtitle { font-family: "Press Start 2P", sans-serif; font-size: clamp(0.78rem, 1.15vw, 0.98rem); line-height: 2.05; letter-spacing: 0.06em; text-transform: uppercase; background: linear-gradient(135deg, var(--accent-gold), var(--primary-cyan), var(--primary-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .pixel-cursor { display: inline-block; width: 10px; height: 16px; margin-left: 8px; background: linear-gradient(135deg, var(--accent-gold), var(--primary-cyan)); animation: cursorBlink 800ms steps(1) infinite; }
+    @keyframes cursorBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
+    @keyframes breatheGlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-premium">
+    <div class="container">
+      <a class="navbar-brand" href="#home">
+        <img src="./Images/logo.png" alt="Retro Station Logo" class="navbar-logo" data-store-logo />
+        <i class="fas fa-joystick"></i>
+        <span class="brand-text">Retro Station</span>
+      </a>
+
+      <a class="nav-link cart-nav-link nav-cart-mobile" href="cart.html" data-i18n-title="nav.cart">
+        <i class="fas fa-shopping-cart"></i> <span data-i18n="nav.cart">Cart</span>
+        <span class="cart-badge" data-cart-badge></span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="#home" data-i18n="nav.home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./about.html" data-i18n="nav.about">About</a></li>
+          <li class="nav-item">
+            <a class="nav-link cart-nav-link" href="cart.html" data-i18n-title="nav.cart">
+              <i class="fas fa-shopping-cart"></i> <span data-i18n="nav.cart">Cart</span>
+              <span class="cart-badge" data-cart-badge></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero-section" id="home">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <div class="hero-logo">
+        <div class="hero-logo-frame">
+          <img src="./Images/logo.png" alt="Retro Station Logo" class="hero-logo-img" data-store-logo width="200" height="200" />
+        </div>
+      </div>
+      <h1 class="hero-title" data-i18n-html="index.heroTitleHtml">Retro <span style="color: var(--accent-gold);">Station</span></h1>
+      <p class="hero-tagline" data-i18n="hero.tagline">OLD IS GOLD</p>
+      <div class="hero-subtitle pixel-subtitle-wrap">
+        <div class="pixel-subtitle-line">
+          <span class="pixel-subtitle" id="pixelSubtitle" data-i18n-pixel="hero.subtitle"></span>
+          <span class="pixel-cursor"></span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <button class="btn-primary-neon" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" data-i18n="hero.shopNow">Shop Now</button>
+        <a class="btn-secondary-neon" href="./about.html" data-i18n="hero.learnMore">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW TO ORDER (moved above products) ================= -->
+  <section class="order-stepper-section" id="how-to-order">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title" data-i18n="sections.orderTitle">How to Order</h2>
+        <p class="section-subtitle" data-i18n="sections.orderSub">Simple & Fast Checkout</p>
+      </div>
+
+      <div class="stepper-container">
+        <div class="stepper-line" aria-hidden="true"></div>
+
+        <div class="step-item">
+          <div class="step-circle">1</div>
+          <div class="step-text-block">
+            <h3 class="step-title" data-i18n="steps.s1.title">Browse & Add</h3>
+            <p class="step-description" data-i18n="steps.s1.text">Choose your favorite products and add them to your cart.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-circle">2</div>
+          <div class="step-text-block">
+            <h3 class="step-title" data-i18n="steps.s2.title">Review Cart</h3>
+            <p class="step-description" data-i18n="steps.s2.text">Check quantities, apply coupons, and review your order details.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-circle">3</div>
+          <div class="step-text-block">
+            <h3 class="step-title" data-i18n="steps.s3.title">Order on WhatsApp</h3>
+            <p class="step-description" data-i18n="steps.s3.text">Tap checkout and send your order directly to us on WhatsApp.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-circle">4</div>
+          <div class="step-text-block">
+            <h3 class="step-title" data-i18n="steps.s4.title">Get Delivered</h3>
+            <p class="step-description" data-i18n="steps.s4.text">We confirm your order and deliver straight to your door.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED PRODUCTS ================= -->
+  <section class="featured-section" id="products">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title" data-i18n="sections.featuredTitle">Featured Devices</h2>
+        <p class="section-subtitle" data-i18n="sections.featuredSub">Next Generation Retro Gaming</p>
+      </div>
+
+      <div class="row g-4" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title" data-i18n="sections.testimonialsTitle">What Gamers Say</h2>
+        <p class="section-subtitle" data-i18n="sections.testimonialsSub">5-Star Reviews from Our Community</p>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t1.text">"This is hands down the best retro gaming device I've ever owned. The display is incredible and the battery lasts forever!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JK</div>
+            <div class="author-info">
+              <h4>James Kevin</h4>
+              <p data-i18n="testimonials.t1.role">Gaming Enthusiast</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t2.text">"Perfect quality and the pre-loaded games are amazing. Customer service was excellent and delivery was super fast!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SK</div>
+            <div class="author-info">
+              <h4>Sarah K.</h4>
+              <p data-i18n="testimonials.t2.role">Verified Buyer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t3.text">"Worth every penny! Feels premium, plays smooth, and brings back all the childhood memories. Highly recommended!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MC</div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p data-i18n="testimonials.t3.role">Retro Gaming Fan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer" id="contact">
+    <div class="footer-glow"></div>
+    <div class="footer-content">
+      <div class="container">
+        <div class="row g-4 mb-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-brand">
+              <h3><i class="fas fa-joystick me-2"></i>Retro Station</h3>
+              <p data-i18n="footer.brandDesc">Your ultimate destination for premium retro gaming devices and accessories.</p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 col-sm-6 footer-section">
+            <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="#home" data-i18n="nav.home">Home</a></li>
+              <li><a href="#products" data-i18n="nav.products">Products</a></li>
+              <li><a href="#testimonials" data-i18n="footer.reviews">Reviews</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-6 footer-section">
+            <h4 data-i18n="footer.support">Support</h4>
+            <ul class="footer-links">
+              <li><a href="#" data-i18n="footer.faq">FAQ</a></li>
+              <li><a href="#" data-i18n="footer.warranty">Warranty</a></li>
+              <li><a href="#" data-i18n="footer.returns">Returns</a></li>
+              <li><a href="#" data-i18n="footer.contactUs">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-section">
+            <h4 data-i18n="footer.contactInfo">Contact Info</h4>
+            <p style="color:var(--text-light); margin-bottom:0.8rem;">
+              <i class="fas fa-phone me-2"></i><a href="tel:+9647809643675" data-store-phone style="color:var(--primary-cyan); text-decoration:none;">+964 780 964 3675</a>
+            </p>
+            <p style="color:var(--text-light); margin-bottom:0.8rem;">
+              <i class="fas fa-envelope me-2"></i><a href="mailto:support@retrostation.com" style="color:var(--primary-cyan); text-decoration:none;">support@retrostation.com</a>
+            </p>
+            <p style="color:var(--text-light);">
+              <i class="fas fa-map-marker-alt me-2"></i>123 Gaming Street, TX 75001
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p><span data-i18n="footer.rightsFull">© 2025 Retro Station. All rights reserved. |</span> <a href="#" style="text-decoration:none; color:var(--primary-cyan);" data-i18n="footer.privacy">Privacy Policy</a> | <a href="#" style="text-decoration:none; color:var(--primary-cyan);" data-i18n="footer.terms">Terms of Service</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- External scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+  <script src="./js/i18n.js"></script>
+
+  <!-- ================= EMBEDDED STORE.JS (with safe i18n fallback) ================= -->
+  <script>
+    // ---------- Safe translation helper ----------
+    const safeT = (key, fallback) => {
+      if (typeof t === "function") {
+        const translated = t(key);
+        if (translated !== key) return translated;   // i18n returned a real translation
+      }
+      return fallback;
+    };
+
+    // ---------- Your exact store config & data ----------
+    const STORE_CONFIG = {
+      name: "Retro Station",
+      currency: "IQD",
+      deliveryFee: 5000,
+      phone: "+9647809643675",
+      whatsappNumber: "9647809643675",
+      logo: "./Images/logo.png",
+      coupons: {
+        RETROSTATIONJR44: { type: "percent", value: 0.1, label: "10% off" },
+      },
+    };
+
+    const PRODUCTS = [
+      { id: 1, name: "R36S Handheld", price: 59000, badge: "Bestseller", image: "./Images/R36S Purple.png", images: ["./Images/R36S Purple.png","./Images/Rs36-noBackground.png","./Images/RS36.jpg"], description: "Open-source retro gaming handheld with a 3.5-inch 640×480 IPS display, RK3326 quad-core processor, 3200mAh battery, and support for thousands of classic games.", specs: ["3.5-inch IPS Display","640×480 Resolution","RK3326 Quad-Core CPU","Mali-G31 GPU","3200mAh Battery","Linux/Open-Source System","TF / MicroSD Storage Support","Supports Classic Retro Emulators","USB-C Charging","3.5mm Headphone Jack"] },
+      { id: 2, name: "M22 Handheld", price: 69000, badge: "Full HD", image: "./Images/M22 Black.png", images: ["./Images/M22 Black.png","./Images/M22 Black 2.png","./Images/M22 white.png"], description: "Portable retro handheld with a large 5-inch IPS display, 3000mAh battery, and large-capacity game storage options.", specs: ["5.0-inch IPS Display","1920×1080 Listed Resolution","N909 Dual-Core 1.2GHz CPU","3000mAh Battery","64GB / 128GB TF Card Options","20,000+ Listed Games","Built-in Speaker","Multiple Language Support","Portable Lightweight Body","USB Charging"] },
+      { id: 3, name: "G28 Handheld", price: 69000, badge: "Pro", image: "./Images/G28 Black.png", images: ["./Images/G28 Black.png"], description: "Compact retro gaming handheld with a 4.3-inch IPS display, 64GB expandable storage options, OTG support, and thousands of preloaded classic games.", specs: ["4.3-inch IPS Display","480×272 Resolution","16:9 Screen Ratio","60Hz Refresh Rate","2000mAh Battery","64GB Storage Version","Expandable TF / MicroSD","OTG Support","Multiple Retro Emulators","Plug-and-Play Design"] },
+      { id: 4, name: "Retro Gaming Light Box", price: 15000, badge: "Decor", image: "./Images/Light Box Red.png", images: ["./Images/Light Box Red.png"], description: "Decorative gaming-themed LED light box for desks, gaming rooms, shelves, and gifts.", specs: ["Gaming Room Decoration","LED Light Box","Side-Lit 3D Effect","Dimmable Brightness","Desk / Shelf Display","Gift-Friendly Design","Approx. 28×50×3.5cm","Ambient Gaming Lighting"] },
+      { id: 5, name: "Gaming Carry Bags", price: 32000, badge: "Protection", image: "./Images/Bags.png", images: ["./Images/Bags.png","./Images/Bag AOT.png"], description: "Protective carrying bags for handheld consoles and gaming accessories, ideal for storage, travel, and daily use.", specs: ["Protective Carrying Bag","Fits Handheld Consoles","Accessory Space","Travel-Friendly","Scratch Protection","Shock-Resistant Exterior","Zipper Closure","Lightweight Build"] },
+      { id: 6, name: "Board Game", price: 25000, badge: "New", image: "./Images/Board Game.png", images: ["./Images/Board Game.png"], description: "Fun tabletop board game for family, friends, parties, and offline entertainment.", specs: ["Tabletop Board Game","Family-Friendly","Party & Friends","Offline Multiplayer","Easy to Learn","Replayable","Gift-Friendly","Portable Box"] }
+    ];
+
+    const CART_KEY = "retro_cart";
+
+    function parseIQD(text) { return Number(String(text||"").replace(/IQD/gi,"").replace(/[^\d]/g,"") || 0); }
+    function formatIQD(n) { return (Number(n)||0).toLocaleString("en-US") + " " + STORE_CONFIG.currency; }
+    function formatPhoneDisplay(phone=STORE_CONFIG.phone) { const d=String(phone).replace(/\D/g,""); if(d.startsWith("964") && d.length>=12) return `+964 ${d.slice(3,6)} ${d.slice(6,9)} ${d.slice(9)}`; return phone.startsWith("+")?phone:`+${phone}`; }
+    function applyStoreContactInfo() {
+      const tel = STORE_CONFIG.phone, display = formatPhoneDisplay(tel);
+      document.querySelectorAll("[data-store-phone]").forEach(el=>{ el.textContent=display; if(el.tagName==="A") el.setAttribute("href",`tel:${tel}`); });
+      document.querySelectorAll("[data-store-logo]").forEach(el=>{ if(el.tagName==="IMG" && STORE_CONFIG.logo) el.src=STORE_CONFIG.logo; });
+    }
+    function getProduct(id) { return PRODUCTS.find(p=>String(p.id)===String(id)) || null; }
+    function getProductImages(product) { if(!product) return []; return Array.isArray(product.images) && product.images.length ? product.images : product.image ? [product.image] : []; }
+    function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)||"[]"); } catch { return []; } }
+    function setCart(cart) { localStorage.setItem(CART_KEY,JSON.stringify(cart)); updateCartBadge(); }
+    function getCartCount(cart) { return (cart||getCart()).reduce((s,i)=>s+(Number(i.qty)||0),0); }
+    function updateCartBadge() { const cnt=getCartCount(); document.querySelectorAll("[data-cart-badge]").forEach(el=>{ el.textContent=cnt>0?String(cnt):""; el.classList.toggle("is-visible",cnt>0); }); }
+    function upsertCartItem(item) { const cart=getCart(), idx=cart.findIndex(x=>String(x.id)===String(item.id)); if(idx>=0){ cart[idx].qty=(Number(cart[idx].qty)||0)+(Number(item.qty)||1); cart[idx].name=item.name; cart[idx].price=item.price; cart[idx].img=item.img; }else{ cart.push({id:item.id,name:item.name,price:item.price,img:item.img,qty:Number(item.qty)||1}); } setCart(cart); return cart; }
+    function addProductToCart(productId,qty=1) { const p=getProduct(productId); if(!p) return null; upsertCartItem({id:p.id,name:p.name,price:p.price,img:p.image,qty}); return p; }
+    function computeOrder(cart,coupon) { const sub=cart.reduce((s,i)=>s+(Number(i.price)||0)*(Number(i.qty)||0),0); const d=sub>0?STORE_CONFIG.deliveryFee:0; let disc=0; if(coupon){ if(coupon.type==="percent") disc=Math.round(sub*coupon.value); else if(coupon.type==="fixed") disc=coupon.value; if(disc>sub) disc=sub; } const total=Math.max(0,sub-disc+d); return {subtotal:sub,discount:disc,delivery:d,total}; }
+    function resolveCoupon(code) { const raw=String(code||"").trim(); if(!raw) return null; const key=Object.keys(STORE_CONFIG.coupons).find(k=>k.toUpperCase()===raw.toUpperCase()); return key ? {...STORE_CONFIG.coupons[key],code:key} : null; }
+    function buildWhatsAppOrderMessage(cart,summary,customer={}) { const lang=typeof getCurrentLang==="function"?getCurrentLang():"en"; const lines=[]; if(lang==="ar"){ lines.push("طلب جديد من Retro Station"); lines.push(""); lines.push(`الاسم: ${customer.name||"-"}`); lines.push(`العنوان: ${customer.address||"-"}`); lines.push(`ملاحظات: ${customer.notes||"-"}`); lines.push(""); lines.push("المنتجات:"); cart.forEach((item,i)=>{ lines.push(`${i+1}. ${item.name} × ${item.qty} — ${formatIQD(Number(item.price)*Number(item.qty))}`); }); lines.push(""); lines.push(`المجموع الفرعي: ${formatIQD(summary.subtotal)}`); lines.push(`الخصم: ${formatIQD(summary.discount)}`); lines.push(`التوصيل: ${formatIQD(summary.delivery)}`); lines.push(`الإجمالي: ${formatIQD(summary.total)}`); return lines.join("\n"); } if(lang==="ku"){ lines.push("داواکاریی نوێ لە Retro Station"); lines.push(""); lines.push(`ناو: ${customer.name||"-"}`); lines.push(`ناونیشان: ${customer.address||"-"}`); lines.push(`تێبینی: ${customer.notes||"-"}`); lines.push(""); lines.push("بەرهەمەکان:"); cart.forEach((item,i)=>{ lines.push(`${i+1}. ${item.name} × ${item.qty} — ${formatIQD(Number(item.price)*Number(item.qty))}`); }); lines.push(""); lines.push(`کۆی لاوەکی: ${formatIQD(summary.subtotal)}`); lines.push(`داشکاندن: ${formatIQD(summary.discount)}`); lines.push(`گەیاندن: ${formatIQD(summary.delivery)}`); lines.push(`کۆی گشتی: ${formatIQD(summary.total)}`); return lines.join("\n"); } lines.push("New order from Retro Station"); lines.push(""); lines.push(`Name: ${customer.name||"-"}`); lines.push(`Address: ${customer.address||"-"}`); lines.push(`Notes: ${customer.notes||"-"}`); lines.push(""); lines.push("Products:"); cart.forEach((item,i)=>{ lines.push(`${i+1}. ${item.name} × ${item.qty} — ${formatIQD(Number(item.price)*Number(item.qty))}`); }); lines.push(""); lines.push(`Subtotal: ${formatIQD(summary.subtotal)}`); lines.push(`Discount: ${formatIQD(summary.discount)}`); lines.push(`Delivery: ${formatIQD(summary.delivery)}`); lines.push(`Total: ${formatIQD(summary.total)}`); return lines.join("\n"); }
+    function openWhatsAppOrder(cart,summary,customer={}) { const phone=String(STORE_CONFIG.whatsappNumber||"").replace(/[^\d]/g,""); if(!phone){ showToast("WhatsApp number missing.","error"); return false; } const msg=buildWhatsAppOrderMessage(cart,summary,customer); window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank","noopener,noreferrer"); return true; }
+    function submitOrder(cart,summary,customer={}) { if(!cart.length){ showToast(t("toast.cartEmpty"),"error"); return false; } if(!customer.name){ showToast(t("errors.nameRequired"),"error"); return false; } const opened=openWhatsAppOrder(cart,summary,customer); if(!opened) return false; showToast(t("toast.orderPlaced",{total:formatIQD(summary.total)})); localStorage.removeItem(CART_KEY); updateCartBadge(); return true; }
+    function showToast(message,type="success") { const existing=document.querySelector(".rs-toast"); if(existing) existing.remove(); const toast=document.createElement("div"); toast.className=`rs-toast rs-toast--${type}`; toast.innerHTML=`<i class="fas ${type==="error"?"fa-circle-exclamation":"fa-circle-check"}"></i><span>${message}</span>`; document.body.appendChild(toast); requestAnimationFrame(()=>toast.classList.add("is-visible")); setTimeout(()=>{ toast.classList.remove("is-visible"); setTimeout(()=>toast.remove(),300); },2400); }
+
+    // ---------- Product rendering (uses safeT) ----------
+    function renderProductCard(product) {
+      const p = (typeof getLocalizedProduct === "function" ? getLocalizedProduct(product.id) : null) || product;
+      return `
+        <div class="col-6 col-md-6 col-lg-4">
+          <article class="product-card" data-product-id="${p.id}" data-product-link="./product-detail.html?id=${p.id}" role="link" tabindex="0" aria-label="${safeT("product.details", "View details")}: ${p.name}">
+            <div class="product-badge">${p.badge}</div>
+            <div class="product-image">
+              <img src="${p.image}" alt="${p.name}" loading="lazy">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">${p.name}</h3>
+              <p class="product-description">${p.description}</p>
+              <div class="product-price">${formatIQD(p.price)}</div>
+              <div class="product-actions">
+                <button type="button" class="btn-order-product" data-order-product="${p.id}">
+                  <i class="fas fa-bag-shopping"></i> ${safeT("product.order", "Order")}
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      `;
+    }
+
+    function renderProductsGrid(containerId) {
+      const grid = document.getElementById(containerId);
+      if (!grid) return;
+      grid.innerHTML = PRODUCTS.map(renderProductCard).join("");
+      bindProductCards(grid);
+      bindOrderButtons(grid);
+    }
+
+    function bindProductCards(root=document) {
+      root.querySelectorAll("[data-product-link]").forEach(card => {
+        const openDetails = () => { window.location.href = card.dataset.productLink; };
+        card.addEventListener("click", openDetails);
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openDetails();
+          }
+        });
+      });
+    }
+
+    function bindOrderButtons(root=document) {
+      root.querySelectorAll("[data-order-product]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault(); e.stopPropagation();
+          const id = btn.getAttribute("data-order-product");
+          const product = addProductToCart(id);
+          if (product) {
+            window.location.href = "cart.html";
+          }
+        });
+      });
+    }
+
+    function refreshStoreUI() { renderProductsGrid("productsGrid"); }
+    function initStore() { updateCartBadge(); applyStoreContactInfo(); window.addEventListener("languageChanged", refreshStoreUI); }
+
+    // ---------- Everything starts here ----------
+    document.addEventListener("DOMContentLoaded", () => {
+      initStore();
+      renderProductsGrid("productsGrid");   // NOW IT WILL WORK – even if i18n fails
+    });
+  </script>
+
+  <script>
+    // Navbar active link & smooth scrolling
+    document.addEventListener("DOMContentLoaded", () => {
+      const navLinks = document.querySelectorAll(".navbar .nav-link");
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          navLinks.forEach(l => l.classList.remove("active"));
+          link.classList.add("active");
+        });
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === "#" || !href.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>

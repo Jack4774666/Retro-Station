@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - Retro Station</title>
+
+  <!-- ✅ Add Bootstrap like your other pages -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/store.css">
+
+  <style>
+    :root {
+      --primary-cyan: #00D9FF;
+      --primary-purple: #7D3FFF;
+      --accent-gold: #FFD700;
+      --accent-pink: #FF3FA4;
+      --accent-lime: #B6FF3F;
+      --dark-bg: #0A0E27;
+      --glass: rgba(255, 255, 255, 0.045);
+      --glass-2: rgba(255, 255, 255, 0.07);
+      --line: rgba(0, 217, 255, 0.22);
+
+      /* ✅ Missing vars used by navbar */
+      --border-neon: rgba(0, 217, 255, 0.3);
+      --glow-cyan: 0 0 20px rgba(0, 217, 255, 0.6);
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --text-light: #E0E0E0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Press Start 2P", monospace;
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(0, 217, 255, 0.12), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(125, 63, 255, 0.14), transparent 55%),
+        radial-gradient(900px 600px at 40% 90%, rgba(255, 63, 164, 0.10), transparent 60%),
+        linear-gradient(135deg, var(--dark-bg) 0%, #1a0b2e 100%);
+      color: #E0E0E0;
+      font-size: 14px;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Scanlines effect */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.03),
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      opacity: 0.22;
+      mix-blend-mode: overlay;
+      animation: scan 10s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(24px); }
+    }
+
+    /* Grid background effect */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.03) 25%, rgba(0, 217, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.03) 75%, rgba(0, 217, 255, 0.03) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.03) 25%, rgba(0, 217, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.03) 75%, rgba(0, 217, 255, 0.03) 76%, transparent 77%, transparent);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ================= NAVBAR (FIXED LIKE INDEX) ================= */
+
+    /* ✅ Make navbar texts normal (NOT pixel), keep the rest of the page pixel */
+.navbar-premium,
+.navbar-premium .navbar-brand,
+.navbar-premium .nav-link,
+.navbar-premium .navbar-toggler {
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  letter-spacing: 0.5px;
+}
+
+/* optional: make links a bit cleaner */
+.navbar-premium .nav-link{
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* optional: brand size like index */
+.navbar-premium .navbar-brand{
+  font-size: 1.6rem;
+}
+
+    .navbar-premium {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid var(--border-neon);
+      box-shadow: 0 10px 40px rgba(0, 217, 255, 0.1);
+      animation: navbarEnter 0.8s ease forwards;
+      position: fixed;
+      top: 0;
+      z-index: 1100;
+    }
+
+    @keyframes navbarEnter {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar-brand {
+      position: relative;
+      font-weight: 800;
+      font-size: 1.25rem; /* a bit smaller for pixel font */
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      letter-spacing: 0.5px;
+      transition: all var(--transition);
+      overflow: hidden;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .navbar-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 18px rgba(0, 217, 255, 0.35);
+      border: 1px solid rgba(0, 217, 255, 0.25);
+      flex: 0 0 auto;
+    }
+
+    .navbar-brand i {
+      font-size: 1.25rem;
+      color: var(--primary-cyan);
+      animation: iconGlow 2s ease-in-out infinite;
+      text-shadow: var(--glow-cyan);
+      -webkit-text-fill-color: initial;
+    }
+
+    @keyframes iconGlow {
+      0%, 100% { text-shadow: var(--glow-cyan); }
+      50% { text-shadow: 0 0 30px rgba(0, 217, 255, 0.8); }
+    }
+
+    .navbar-brand::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+      transform: skewX(-20deg);
+      transition: 0.6s;
+    }
+    .navbar-brand:hover::after { left: 130%; }
+
+    .navbar-brand:hover { transform: scale(1.03); }
+    .navbar-brand:hover i { transform: rotate(10deg) scale(1.1); color: var(--accent-gold); }
+    .navbar-brand:active { transform: scale(0.98); }
+
+    .navbar-premium .nav-link {
+      color: var(--text-light);
+      font-weight: 700;
+      margin: 0 0.7rem;
+      position: relative;
+      transition: all var(--transition);
+      font-size: 0.9rem; /* pixel font needs smaller */
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+
+    .navbar-premium .nav-link:hover,
+    .navbar-premium .nav-link.active {
+      color: var(--primary-cyan);
+      text-shadow: var(--glow-cyan);
+      transform: translateY(-1px);
+    }
+
+    .navbar-premium .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0%;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
+      transition: width var(--transition);
+    }
+
+    .navbar-premium .nav-link:hover::after,
+    .navbar-premium .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* ✅ Toggler look like premium theme */
+    .navbar-toggler {
+      border: 1px solid rgba(0, 217, 255, 0.35) !important;
+      box-shadow: 0 0 18px rgba(0, 217, 255, 0.15);
+    }
+    .navbar-toggler:focus { box-shadow: 0 0 0 0.2rem rgba(0, 217, 255, 0.18); }
+    .navbar-toggler-icon { filter: invert(1) brightness(1.25); }
+
+    /* ✅ Make sure nav is above scanlines */
+    .navbar-premium { z-index: 1100; }
+    body::before, body::after { z-index: 1; }
+    .product-container { position: relative; z-index: 2; }
+
+    /*//////////////////////////////////////////////*/
+
+    /* Container */
+    .product-container {
+      padding: 4rem 2rem;
+      min-height: 100vh;
+    }
+
+    /* Header section */
+    .header-section {
+      margin-bottom: 3rem;
+      animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Back button */
+    .btn-back {
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary-cyan);
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      background: rgba(0, 217, 255, 0.08);
+      border: 2px solid rgba(0, 217, 255, 0.3);
+      box-shadow: 0 0 18px rgba(0, 217, 255, 0.15), inset 0 0 10px rgba(0, 217, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-back:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 217, 255, 0.35), inset 0 0 15px rgba(0, 217, 255, 0.15);
+      text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+      border-color: var(--primary-cyan);
+    }
+
+    /* Main content grid */
+    .product-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* Image section */
+    .product-image-section {
+      animation: fadeInLeft 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .product-image {
+      height: 500px;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(125, 63, 255, 0.10));
+      border: 3px solid rgba(0, 217, 255, 0.40);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 45px rgba(0, 217, 255, 0.20),
+        inset 0 0 28px rgba(125, 63, 255, 0.12),
+        0 20px 60px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 14px;
+      background: linear-gradient(135deg,
+        rgba(0, 217, 255, 0.55),
+        rgba(125, 63, 255, 0.45),
+        rgba(255, 63, 164, 0.45)
+      );
+      opacity: 0.12;
+      filter: blur(18px);
+      z-index: 0;
+      animation: borderPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { opacity: 0.12; }
+      50% { opacity: 0.25; }
+    }
+
+    .product-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 217, 255, 0.15), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .product-image img {
+      position: relative;
+      z-index: 1;
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0, 217, 255, 0.25));
+      animation: floatImage 3s ease-in-out infinite, imagePopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-image img.is-switching {
+      opacity: 0;
+      transform: scale(0.96);
+      animation: none;
+    }
+
+    .gallery-wrap {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 217, 255, 0.35);
+      background: rgba(10, 14, 39, 0.82);
+      color: var(--primary-cyan);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .gallery-nav:hover {
+      border-color: rgba(0, 217, 255, 0.65);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.35);
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    .gallery-prev { left: 12px; }
+    .gallery-next { right: 12px; }
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0.25rem;
+    }
+
+    .gallery-thumbs.is-hidden {
+      display: none;
+    }
+
+    .gallery-thumb {
+      width: 78px;
+      height: 78px;
+      padding: 0.35rem;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 217, 255, 0.18);
+      background: rgba(10, 14, 39, 0.55);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      filter: none;
+      animation: none;
+    }
+
+    .gallery-thumb:hover {
+      border-color: rgba(0, 217, 255, 0.45);
+      box-shadow: 0 0 16px rgba(0, 217, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .gallery-thumb.active {
+      border-color: var(--primary-cyan);
+      box-shadow: 0 0 22px rgba(0, 217, 255, 0.35);
+      background: rgba(0, 217, 255, 0.08);
+    }
+
+    @keyframes floatImage {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes imagePopIn {
+      from { opacity: 0; transform: scale(0.8) rotateZ(-5deg); }
+      to { opacity: 1; transform: scale(1) rotateZ(0deg); }
+    }
+
+    /* Floating decorative elements */
+    .floating-element {
+      position: absolute;
+      font-size: 3rem;
+      animation: float 4s ease-in-out infinite;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .element-1 { top: 10%; left: 2%; animation-delay: 0s; }
+    .element-2 { top: 60%; right: 2%; animation-delay: 1s; }
+    .element-3 { bottom: 10%; left: 10%; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Details card */
+    .details-card {
+      background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.02));
+      border: 2px solid rgba(0, 217, 255, 0.20);
+      border-radius: 14px;
+      padding: 2.5rem;
+      box-shadow:
+        0 0 45px rgba(0, 217, 255, 0.12),
+        inset 0 0 20px rgba(125, 63, 255, 0.08);
+      backdrop-filter: blur(10px);
+      animation: fadeInRight 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .details-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .details-card:hover::before { left: 100%; }
+
+    /* Title and price */
+    .product-title {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 20px rgba(0, 217, 255, 0.3); }
+      50% { text-shadow: 0 0 40px rgba(0, 217, 255, 0.6); }
+    }
+
+    .product-price {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--accent-gold), #FFEF9A, var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      animation: priceGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes priceGlow {
+      0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+      50% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+    }
+
+    /* Badge row */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .retro-badge {
+      font-size: 0.65rem;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: #EAEAEA;
+      box-shadow: 0 0 20px rgba(125, 63, 255, 0.15);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      animation: badgePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.3s ease;
+    }
+
+    .retro-badge:nth-child(1) { animation-delay: 0.1s; }
+    .retro-badge:nth-child(2) { animation-delay: 0.2s; }
+    .retro-badge:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes badgePop {
+      from { opacity: 0; transform: scale(0.5) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .retro-badge:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 0 30px rgba(125, 63, 255, 0.35); }
+    .retro-badge.cyan { border-color: rgba(0, 217, 255, 0.35); box-shadow: 0 0 20px rgba(0, 217, 255, 0.25); }
+    .retro-badge.cyan:hover { box-shadow: 0 0 40px rgba(0, 217, 255, 0.5); text-shadow: 0 0 10px var(--primary-cyan); }
+    .retro-badge.pink { border-color: rgba(255, 63, 164, 0.35); box-shadow: 0 0 20px rgba(255, 63, 164, 0.25); }
+    .retro-badge.pink:hover { box-shadow: 0 0 40px rgba(255, 63, 164, 0.5); text-shadow: 0 0 10px var(--accent-pink); }
+    .retro-badge.lime { border-color: rgba(182, 255, 63, 0.35); box-shadow: 0 0 20px rgba(182, 255, 63, 0.25); }
+    .retro-badge.lime:hover { box-shadow: 0 0 40px rgba(182, 255, 63, 0.5); text-shadow: 0 0 10px var(--accent-lime); }
+
+    /* Description — pixel typewriter */
+    .product-description {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(0, 217, 255, 0.05);
+      border-left: 4px solid var(--primary-cyan);
+      border-radius: 6px;
+      animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+    }
+
+    .pixel-desc-wrap {
+      display: block;
+    }
+
+    .pixel-desc-line {
+      position: relative;
+      text-align: left;
+      filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.15))
+              drop-shadow(0 0 14px rgba(125, 63, 255, 0.12));
+    }
+
+    .pixel-desc-text {
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(0.62rem, 1.4vw, 0.78rem);
+      line-height: 2;
+      letter-spacing: 0.04em;
+      color: #D7E6FF;
+      text-transform: none;
+    }
+
+    .pixel-desc-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      margin-left: 6px;
+      transform: translateY(2px);
+      border-radius: 2px;
+      background: var(--primary-cyan);
+      box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+      animation: pixelBlink 0.9s step-end infinite;
+    }
+
+    @keyframes pixelBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .specs-box {
+      background: linear-gradient(180deg, var(--glass-2), rgba(255, 255, 255, 0.02));
+      border: 2px solid rgba(0, 217, 255, 0.20);
+      padding: 1.8rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      box-shadow:
+        0 0 30px rgba(0, 217, 255, 0.12),
+        inset 0 0 15px rgba(125, 63, 255, 0.06);
+      animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
+    }
+
+    .specs-title {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--accent-lime));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 14px rgba(0, 217, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .specs-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.8rem;
+      line-height: 2.2;
+      color: #E9F2FF;
+    }
+
+    .specs-box li {
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed rgba(0, 217, 255, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.3s ease;
+      animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .specs-box li:hover {
+      transform: translateX(8px);
+      color: var(--primary-cyan);
+      text-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+    }
+
+    .specs-box li:last-child { border-bottom: none; }
+
+    /* CTA buttons */
+    .button-container {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.75s both;
+    }
+
+    .btn-add-to-cart {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple), var(--accent-pink));
+      color: #fff;
+      border: none;
+      padding: 1.3rem 2.6rem;
+      font-family: "Press Start 2P", monospace;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(0, 217, 255, 0.45);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+
+    .btn-add-to-cart:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 0 60px rgba(0, 217, 255, 0.7), inset 0 0 20px rgba(0, 217, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-secondary {
+      flex: 1;
+      padding: 1.3rem 2.6rem;
+      background: rgba(0, 217, 255, 0.08);
+      border: 2px solid var(--primary-cyan);
+      border-radius: 10px;
+      color: var(--primary-cyan);
+      font-family: "Press Start 2P", monospace;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-6px) scale(1.05);
+      background: rgba(0, 217, 255, 0.15);
+      box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
+      text-shadow: 0 0 10px var(--primary-cyan);
+    }
+
+    /* Animations */
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .product-content { grid-template-columns: 1fr; gap: 3rem; }
+      .product-title { font-size: 2rem; }
+      .product-price { font-size: 1.6rem; }
+      .product-image { height: 400px; }
+    }
+
+    .btn-order-now {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary-purple), var(--accent-pink));
+      color: #fff;
+      border: none;
+      padding: 1.3rem 2.6rem;
+      font-family: "Press Start 2P", monospace;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(125, 63, 255, 0.35);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-order-now:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 0 60px rgba(125, 63, 255, 0.55);
+    }
+
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .qty-selector label {
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+    }
+
+    .qty-selector .qty {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(0, 217, 255, 0.06);
+      border: 2px solid rgba(0, 217, 255, 0.18);
+      border-radius: 14px;
+      padding: 0.35rem;
+    }
+
+    .qty-selector .qty button {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 900;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+    }
+
+    .qty-selector .qty span {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .product-container { padding: 2.5rem 1rem; }
+      .product-image { height: 300px; }
+      .gallery-thumb { width: 64px; height: 64px; }
+      .gallery-nav { width: 36px; height: 36px; }
+      .product-title { font-size: 1.5rem; }
+      .product-price { font-size: 1.3rem; }
+      .product-description { font-size: 0.75rem; padding: 1rem; }
+      .specs-box { padding: 1.2rem; }
+      .specs-box ul { font-size: 0.7rem; }
+      .button-container { flex-direction: column; gap: 1rem; }
+      .btn-add-to-cart, .btn-secondary, .btn-order-now { width: 100%; padding: 1.1rem 1.2rem; font-size: 0.75rem; }
+      .badge-row { gap: 0.5rem; }
+      .retro-badge { font-size: 0.6rem; padding: 0.5rem 0.8rem; }
+      .details-card { padding: 1.5rem; }
+
+      .navbar-logo { width: 48px; height: 48px; }
+      .navbar-brand { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-premium">
+    <div class="container">
+      <a class="navbar-brand" href="index.html#home">
+        <img src="./Images/logo.png" alt="Retro Station Logo" class="navbar-logo" data-store-logo />
+        <i class="fas fa-joystick"></i>
+        <span class="brand-text">Retro Station</span>
+      </a>
+
+      <a class="nav-link cart-nav-link nav-cart-mobile" href="cart.html" data-i18n-title="nav.cart">
+        <i class="fas fa-shopping-cart"></i> <span data-i18n="nav.cart">Cart</span>
+        <span class="cart-badge" data-cart-badge></span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html#home" data-i18n="nav.home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./about.html" data-i18n="nav.about">About</a></li>
+          <li class="nav-item">
+            <a class="nav-link cart-nav-link" href="cart.html" data-i18n-title="nav.cart">
+              <i class="fas fa-shopping-cart"></i> <span data-i18n="nav.cart">Cart</span>
+              <span class="cart-badge" data-cart-badge></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="product-container">
+    <!-- Header -->
+    <div class="header-section">
+      <a href="./index.html" class="btn-back">
+        <i class="fas fa-arrow-left"></i> <span data-i18n="product.backShopBtn">BACK TO SHOP</span>
+      </a>
+    </div>
+
+    <!-- Main Product Section -->
+    <div class="product-content">
+      <!-- Image Section -->
+      <div class="product-image-section" style="overflow: hidden;">
+        <div class="gallery-wrap">
+          <div style="position: relative;">
+            <div class="floating-element element-1">🎮</div>
+            <div class="floating-element element-2">⚡</div>
+            <div class="floating-element element-3">✨</div>
+
+            <div class="product-image">
+              <button class="gallery-nav gallery-prev" id="galleryPrev" type="button" aria-label="Previous image" hidden>
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <img id="productImage" src="./Images/Rs36-noBackground.png" alt="Product">
+              <button class="gallery-nav gallery-next" id="galleryNext" type="button" aria-label="Next image" hidden>
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="gallery-thumbs is-hidden" id="galleryThumbs"></div>
+        </div>
+      </div>
+
+      <!-- Details Section -->
+      <div class="details-card">
+        <h1 class="product-title" id="productTitle">RS-36</h1>
+        <div class="product-price" id="productPrice">69,000 IQD</div>
+
+        <div class="badge-row">
+          <span class="retro-badge cyan" data-i18n="product.badge1">✨ PREMIUM BUILD</span>
+          <span class="retro-badge pink" data-i18n="product.badge2">🎮 1000+ GAMES</span>
+          <span class="retro-badge lime" data-i18n="product.badge3">🔋 12+ HOURS</span>
+        </div>
+
+        <div class="product-description">
+          <div class="pixel-desc-wrap">
+            <div class="pixel-desc-line" aria-label="Product description">
+              <span class="pixel-desc-text" id="pixelProductDesc"></span>
+              <span class="pixel-cursor pixel-desc-cursor" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="specs-box">
+          <div class="specs-title" data-i18n="product.specsTitle">⚙ SPECIFICATIONS</div>
+          <ul id="productSpecs"></ul>
+        </div>
+
+        <div class="qty-selector">
+          <label data-i18n="product.qty">QTY:</label>
+          <div class="qty">
+            <button type="button" id="btnQtyMinus" aria-label="Decrease">-</button>
+            <span id="detailQty">1</span>
+            <button type="button" id="btnQtyPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button class="btn-add-to-cart" id="btnAddToCart">
+            <i class="fas fa-shopping-cart"></i> <span data-i18n="product.addToCart">ADD TO CART</span>
+          </button>
+          <button class="btn-order-now" id="btnOrderNow">
+            <i class="fas fa-bag-shopping"></i> <span data-i18n="product.order">ORDER</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/i18n.js"></script>
+  <script src="./js/store.js"></script>
+
+  <script>
+    const SPEC_ICONS = ["📱", "⚡", "🔋", "💾", "🔊", "🌐"];
+    let currentProduct = null;
+    let detailQty = 1;
+    let galleryImages = [];
+    let galleryIndex = 0;
+
+    function setGalleryImage(index, animate = true) {
+      if (!galleryImages.length) return;
+      galleryIndex = index;
+      const mainImg = document.getElementById("productImage");
+      const src = galleryImages[index];
+
+      if (animate) {
+        mainImg.classList.add("is-switching");
+        setTimeout(() => {
+          mainImg.src = src;
+          mainImg.classList.remove("is-switching");
+        }, 180);
+      } else {
+        mainImg.src = src;
+      }
+
+      document.querySelectorAll(".gallery-thumb").forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+      });
+    }
+
+    function stepGallery(delta) {
+      if (galleryImages.length <= 1) return;
+      const next = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
+      setGalleryImage(next);
+    }
+
+    function renderProductGallery(product) {
+      galleryImages = getProductImages(product);
+      galleryIndex = 0;
+
+      const mainImg = document.getElementById("productImage");
+      const thumbsEl = document.getElementById("galleryThumbs");
+      const prevBtn = document.getElementById("galleryPrev");
+      const nextBtn = document.getElementById("galleryNext");
+
+      if (!galleryImages.length) return;
+
+      mainImg.alt = product.name;
+      setGalleryImage(0, false);
+
+      const multi = galleryImages.length > 1;
+      prevBtn.hidden = !multi;
+      nextBtn.hidden = !multi;
+
+      if (!multi) {
+        thumbsEl.innerHTML = "";
+        thumbsEl.classList.add("is-hidden");
+        return;
+      }
+
+      thumbsEl.classList.remove("is-hidden");
+      thumbsEl.innerHTML = galleryImages
+        .map(
+          (src, i) => `
+            <button type="button" class="gallery-thumb${i === 0 ? " active" : ""}" data-index="${i}" aria-label="View image ${i + 1}">
+              <img src="${src}" alt="">
+            </button>
+          `
+        )
+        .join("");
+
+      thumbsEl.querySelectorAll(".gallery-thumb").forEach((btn) => {
+        btn.addEventListener("click", () => setGalleryImage(Number(btn.dataset.index)));
+      });
+    }
+
+    function animateProductDescription(text) {
+      const el = document.getElementById("pixelProductDesc");
+      if (!el) return;
+      el.dataset.text = text;
+      startPixelOnceTypewriter("pixelProductDesc", { typingSpeed: 50, glitchChance: 0.02 });
+    }
+
+    function loadProductPage() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id") || "1";
+      const product = getLocalizedProduct(id);
+
+      if (!product) {
+        document.querySelector(".details-card").innerHTML =
+          `<h1 class="product-title">${t("product.notFound")}</h1><p><a href="index.html#products">${t("product.backShop")}</a></p>`;
+        return;
+      }
+
+      currentProduct = product;
+      document.title = `${product.name} - Retro Station`;
+      document.getElementById("productTitle").textContent = product.name;
+      document.getElementById("productPrice").textContent = formatIQD(product.price);
+      renderProductGallery(product);
+
+      animateProductDescription(product.description);
+
+      const specsEl = document.getElementById("productSpecs");
+      specsEl.innerHTML = product.specs
+        .map((spec, i) => `<li>${SPEC_ICONS[i % SPEC_ICONS.length]} <span>${spec}</span></li>`)
+        .join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadProductPage();
+
+      document.getElementById("galleryPrev").addEventListener("click", () => stepGallery(-1));
+      document.getElementById("galleryNext").addEventListener("click", () => stepGallery(1));
+
+      const qtyEl = document.getElementById("detailQty");
+      document.getElementById("btnQtyMinus").addEventListener("click", () => {
+        detailQty = Math.max(1, detailQty - 1);
+        qtyEl.textContent = detailQty;
+      });
+      document.getElementById("btnQtyPlus").addEventListener("click", () => {
+        detailQty += 1;
+        qtyEl.textContent = detailQty;
+      });
+
+      document.getElementById("btnAddToCart").addEventListener("click", () => {
+        if (!currentProduct) return;
+        upsertCartItem({
+          id: currentProduct.id,
+          name: currentProduct.name,
+          price: currentProduct.price,
+          img: currentProduct.image,
+          qty: detailQty,
+        });
+        showToast(t("toast.added", { name: currentProduct.name }));
+      });
+
+      document.getElementById("btnOrderNow").addEventListener("click", () => {
+        if (!currentProduct) return;
+        upsertCartItem({
+          id: currentProduct.id,
+          name: currentProduct.name,
+          price: currentProduct.price,
+          img: currentProduct.image,
+          qty: detailQty,
+        });
+        window.location.href = "cart.html";
+      });
+
+      window.addEventListener("languageChanged", loadProductPage);
+    });
+  </script>
+
+</body>
+</html>

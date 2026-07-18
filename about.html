@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retro Station - About Us</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/store.css">
+
+  <style>
+    /* ================= RETRO STATION COLOR PALETTE (KEEP) ================= */
+    :root {
+      --primary-cyan: #00D9FF;
+      --primary-purple: #7D3FFF;
+      --secondary-purple: #5B21B6;
+      --dark-bg: #0A0E27;
+      --dark-secondary: #1a1f3a;
+      --accent-gold: #FFD700;
+      --accent-pink: #FF006E;
+      --text-light: #E0E0E0;
+      --text-white: #FFFFFF;
+      --border-neon: rgba(0, 217, 255, 0.3);
+      --glow-cyan: 0 0 20px rgba(0, 217, 255, 0.6);
+      --glow-purple: 0 0 20px rgba(125, 63, 255, 0.6);
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter","Poppins",sans-serif; /* ✅ like index */
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #1a0b2e 100%);
+      color: var(--text-light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ================= NAVBAR (INDEX STYLE) ================= */
+    .navbar-premium {
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid var(--border-neon);
+      box-shadow: 0 10px 40px rgba(0, 217, 255, 0.1);
+      animation: navbarEnter 0.8s ease forwards;
+      position: fixed;
+      top: 0;
+      z-index: 1100;
+    }
+
+    @keyframes navbarEnter {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .navbar-brand {
+      position: relative;
+      font-weight: 800;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      letter-spacing: 0.5px;
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+
+    .navbar-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 18px rgba(0, 217, 255, 0.35);
+      border: 1px solid rgba(0, 217, 255, 0.25);
+    }
+
+    .navbar-brand i {
+      font-size: 1.8rem;
+      color: var(--primary-cyan);
+      animation: iconGlow 2s ease-in-out infinite;
+      text-shadow: var(--glow-cyan);
+    }
+
+    @keyframes iconGlow {
+      0%, 100% { text-shadow: var(--glow-cyan); }
+      50% { text-shadow: 0 0 30px rgba(0, 217, 255, 0.8); }
+    }
+
+    .navbar-brand::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+      transform: skewX(-20deg);
+      transition: 0.6s;
+    }
+    .navbar-brand:hover::after { left: 130%; }
+
+    .navbar-brand:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+    }
+    .navbar-brand:hover i {
+      transform: rotate(10deg) scale(1.1);
+      color: var(--accent-gold);
+    }
+    .navbar-brand:active { transform: scale(0.97); }
+
+    .navbar-premium .nav-link {
+      color: var(--text-light);
+      font-weight: 600;
+      margin: 0 0.8rem;
+      position: relative;
+      transition: all var(--transition);
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-premium .nav-link:hover,
+    .navbar-premium .nav-link.active {
+      color: var(--primary-cyan);
+      text-shadow: var(--glow-cyan);
+      transform: translateY(-1px);
+    }
+
+    .navbar-premium .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
+      transition: width var(--transition);
+    }
+
+    .navbar-premium .nav-link:hover::after,
+    .navbar-premium .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* ================= HERO (LIKE INDEX) ================= */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a0b2e 50%, #2d0f4a 100%);
+      padding: 5rem 1.25rem;
+    }
+
+    .hero-background {
+      position: absolute;
+      inset: 0;
+      opacity: 0.3;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 217, 255, 0.2), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(125, 63, 255, 0.2), transparent 50%);
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeInUp 1.2s ease forwards;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+      animation: logoRotate 20s linear infinite;
+      filter: drop-shadow(0 0 30px rgba(0, 217, 255, 0.45));
+    }
+
+    .hero-logo-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(0, 217, 255, 0.55);
+      box-shadow:
+        0 0 24px rgba(0, 217, 255, 0.35),
+        inset 0 0 18px rgba(125, 63, 255, 0.18);
+    }
+
+    .hero-logo-frame::before,
+    .hero-logo-frame::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-logo-frame::before {
+      border: 2px solid rgba(125, 63, 255, 0.55);
+    }
+
+    .hero-logo-frame::after {
+      inset: 18px;
+      border: 2px solid rgba(0, 217, 255, 0.45);
+    }
+
+    .hero-logo-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: saturate(1.15) contrast(1.05);
+    }
+
+    @keyframes logoRotate {
+      0% { transform: rotateZ(0deg); }
+      100% { transform: rotateZ(360deg); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5.5vw, 2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-purple) 50%, var(--accent-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.9rem;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3)); }
+      50% { filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.6)); }
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+      50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    }
+
+    /* ================= PIXEL SUBTITLE (LIKE INDEX) ================= */
+    .pixel-subtitle-wrap{
+      margin: 0 auto 1rem;
+      max-width: 980px;
+      display: grid;
+      place-items: center;
+    }
+
+    .pixel-subtitle-line{
+      position: relative;
+      padding: 3px 2px;
+      text-align: center;
+      filter: drop-shadow(0 0 12px rgba(0, 217, 255, 0.18))
+              drop-shadow(0 0 18px rgba(125, 63, 255, 0.14));
+      animation: breatheGlow 2.8s ease-in-out infinite;
+    }
+
+    .pixel-subtitle{
+      font-family: "Press Start 2P", system-ui, sans-serif;
+      font-size: clamp(0.58rem, 1vw, 0.90rem);
+      line-height: 2.05;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--accent-gold), var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow:
+        0 0 10px rgba(255, 215, 0, 0.18),
+        0 0 18px rgba(0, 217, 255, 0.16),
+        0 0 22px rgba(125, 63, 255, 0.14);
+    }
+
+    .pixel-cursor{
+      display: inline-block;
+      width: 10px;
+      height: 16px;
+      margin-left: 8px;
+      transform: translateY(3px);
+      border-radius: 2px;
+      background: linear-gradient(135deg, var(--accent-gold), var(--primary-cyan));
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
+      animation: cursorBlink 800ms steps(1,end) infinite;
+    }
+
+    @keyframes cursorBlink{
+      0%,49% { opacity: 1; }
+      50%,100% { opacity: 0; }
+    }
+
+    @keyframes breatheGlow{
+      0%,100% {
+        transform: translateY(0);
+        filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.14))
+                drop-shadow(0 0 18px rgba(125, 63, 255, 0.10));
+      }
+      50% {
+        transform: translateY(-2px);
+        filter: drop-shadow(0 0 18px rgba(0, 217, 255, 0.25))
+                drop-shadow(0 0 26px rgba(125, 63, 255, 0.18));
+      }
+    }
+
+    /* ================= CTA (INDEX STYLE) ================= */
+    .hero-cta {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 0.6rem;
+    }
+
+    .btn-primary-neon,
+    .btn-secondary-neon {
+      padding: 1rem 2.4rem;
+      font-size: 0.98rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-primary-neon {
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      color: var(--text-white);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary-neon:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 40px rgba(0, 217, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.2);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      color: white;
+    }
+
+    .btn-secondary-neon {
+      background: transparent;
+      border: 2px solid var(--primary-cyan);
+      color: var(--primary-cyan);
+      box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.1);
+    }
+
+    .btn-secondary-neon:hover {
+      background: var(--primary-cyan);
+      color: var(--dark-bg);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
+    }
+
+    /* ================= ABOUT CONTENT SECTIONS (INDEX VIBE) ================= */
+    .about-content {
+      padding: 6rem 2rem;
+      position: relative;
+      background: linear-gradient(180deg, transparent 0%, rgba(125, 63, 255, 0.05) 100%);
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 800;
+    }
+
+    .about-card {
+      background: linear-gradient(135deg, rgba(26, 31, 58, 0.8), rgba(93, 33, 182, 0.25));
+      border: 2px solid rgba(0, 217, 255, 0.22);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all var(--transition);
+      position: relative;
+      backdrop-filter: blur(10px);
+      padding: 2.2rem;
+      height: 100%;
+      animation: cardEnter 0.8s ease forwards;
+    }
+
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .about-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(0, 217, 255, 0.10), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+      pointer-events: none;
+    }
+
+    .about-card:hover::before { opacity: 1; }
+
+    .about-card:hover {
+      transform: translateY(-12px);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 20px 60px rgba(0, 217, 255, 0.22), inset 0 0 20px rgba(0, 217, 255, 0.08);
+    }
+
+    .about-card h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--primary-cyan);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .about-card p {
+      color: rgba(224,224,224,0.95);
+      margin: 0;
+      line-height: 1.85;
+      font-weight: 500;
+    }
+
+    .about-icon {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 18px rgba(0, 217, 255, 0.18));
+    }
+
+    /* Stats cards */
+    .stats-row { margin-top: 2.2rem; }
+
+    .stat-tile {
+      background: rgba(10, 14, 39, 0.45);
+      border: 2px solid rgba(0, 217, 255, 0.18);
+      border-radius: 16px;
+      padding: 1.8rem 1.6rem;
+      transition: all var(--transition);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .stat-tile:hover {
+      transform: translateY(-10px);
+      border-color: rgba(0, 217, 255, 0.35);
+      box-shadow: 0 18px 55px rgba(0, 217, 255, 0.18);
+    }
+
+    .stat-kpi {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-gold), var(--primary-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: rgba(224,224,224,0.9);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+    }
+
+    /* Social */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .social-links a {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all var(--transition);
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.25);
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
+    }
+
+
+       /* ================= Review ================= */
+    .testimonials-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), transparent);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(93, 33, 182, 0.2), rgba(26, 31, 58, 0.7));
+      border: 2px solid var(--border-neon);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all var(--transition);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      font-size: 4rem;
+      color: var(--primary-cyan);
+      opacity: 0.3;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 20px 50px rgba(0, 217, 255, 0.2);
+    }
+
+    .testimonial-text {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .author-info h4 {
+      color: var(--primary-cyan);
+      font-weight: 800;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .author-info p {
+      color: var(--accent-gold);
+      font-size: 0.85rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .rating {
+      color: var(--accent-gold);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ================= FOOTER (INDEX STYLE) ================= */
+    .footer {
+      background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(26, 20, 50, 0.95));
+      border-top: 2px solid var(--border-neon);
+      backdrop-filter: blur(10px);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(0, 217, 255, 0.1), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(125, 63, 255, 0.1), transparent 50%);
+      pointer-events: none;
+    }
+
+    .footer-content { position: relative; z-index: 2; }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      font-weight: 900;
+    }
+
+    .footer-brand p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .footer-section h4 {
+      color: var(--primary-cyan);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.95rem;
+    }
+
+    .footer-links { list-style: none; padding-left: 0; }
+    .footer-links li { margin-bottom: 0.8rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: all var(--transition);
+      position: relative;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a::before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
+      transition: width var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-cyan);
+      text-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+    }
+    .footer-links a:hover::before { width: 100%; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-neon);
+      padding-top: 2rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--text-light);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom p {
+      background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+      .navbar-brand { font-size: 1.3rem; }
+      .navbar-premium .nav-link { margin: 0.5rem 0; font-size: 0.85rem; }
+      .hero-logo { width: 150px; height: 150px; }
+      .section-title { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-logo { width: 120px; height: 120px; }
+      .hero-cta { flex-direction: column; gap: 1rem; }
+      .btn-primary-neon, .btn-secondary-neon { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .hero-background, .hero-logo, .pixel-subtitle-line, .pixel-cursor { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-premium">
+    <div class="container">
+      <a class="navbar-brand" href="index.html#home">
+        <img src="./Images/logo.png" alt="Retro Station Logo" class="navbar-logo" data-store-logo />
+        <i class="fas fa-joystick"></i>
+        <span class="brand-text">Retro Station</span>
+      </a>
+
+      <a class="nav-link cart-nav-link nav-cart-mobile" href="cart.html" data-i18n-title="nav.cart">
+        <i class="fas fa-shopping-cart"></i> <span data-i18n="nav.cart">Cart</span>
+        <span class="cart-badge" data-cart-badge></span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html#home" data-i18n="nav.home">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="./about.html" data-i18n="nav.about">About</a></li>
+          <li class="nav-item">
+            <a class="nav-link cart-nav-link" href="cart.html" data-i18n-title="nav.cart">
+              <i class="fas fa-shopping-cart"></i> <span data-i18n="nav.cart">Cart</span>
+              <span class="cart-badge" data-cart-badge></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero-section" id="home">
+    <div class="hero-background"></div>
+
+    <div class="hero-content">
+      <!-- Same rotating logo style as index -->
+      <div class="hero-logo">
+        <div class="hero-logo-frame">
+          <img
+            src="./Images/logo.png"
+            alt="Retro Station Logo"
+            class="hero-logo-img"
+            data-store-logo
+            width="200"
+            height="200"
+          />
+        </div>
+      </div>
+
+      <h1 class="hero-title" data-i18n-html="aboutPage.heroTitleHtml">About <span style="color: var(--accent-gold); -webkit-text-fill-color: initial;">Retro Station</span></h1>
+      <p class="hero-tagline" data-i18n="aboutPage.tagline">TRUSTED • FAST • RELIABLE</p>
+
+      <div class="pixel-subtitle-wrap">
+        <div class="pixel-subtitle-line" aria-label="About subtitle">
+          <span class="pixel-subtitle" id="pixelAboutSubtitle" data-i18n-pixel="aboutPage.pixelSub"></span>
+          <span class="pixel-cursor" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn-primary-neon" href="index.html#products"><i class="fas fa-bag-shopping"></i> <span data-i18n="aboutPage.browseProducts">Browse Products</span></a>
+        <a class="btn-secondary-neon" href="contact.html"><i class="fas fa-paper-plane"></i> <span data-i18n="aboutPage.contactBtn">Contact Us</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT CONTENT ================= -->
+  <section class="about-content">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title" data-i18n="aboutPage.whoTitle">Who We Are</h2>
+        <p class="section-subtitle" data-i18n="aboutPage.whoSub">GAMERS SERVING GAMERS</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="about-card">
+            <div class="about-icon">🎮</div>
+            <h3 data-i18n="aboutPage.c1Title">Reliable Online Business</h3>
+            <p data-i18n="aboutPage.c1Text">
+              Retro Station is an online-first store built on trust. We keep things simple:
+              quality products, honest communication, and fast delivery — every time.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="about-card">
+            <div class="about-icon">📦</div>
+            <h3 data-i18n="aboutPage.c2Title">Real Inventory & Warehouse</h3>
+            <p data-i18n="aboutPage.c2Text">
+              We operate with a small warehouse / inventory so we can check items, pack carefully,
+              and deliver quickly — with consistent quality control.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="about-card">
+            <div class="about-icon">🛡️</div>
+            <h3 data-i18n="aboutPage.c3Title">Warranty & Support</h3>
+            <p data-i18n="aboutPage.c3Text">
+              We provide warranties on eligible products and clear support for returns and issues.
+              If something isn’t right, we take care of it — that’s the Retro Station promise.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="about-card">
+            <div class="about-icon">📱</div>
+            <h3 data-i18n="aboutPage.c4Title">Community on Instagram</h3>
+            <p data-i18n="aboutPage.c4Text">
+              We’re most active on Instagram — new stock, deals, unboxings, and customer reviews.
+              Follow us and stay updated on everything gaming & entertainment.
+            </p>
+
+            <div class="social-links">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 stats-row">
+        <div class="col-lg-4 col-md-6">
+          <div class="stat-tile">
+            <div class="stat-kpi">2,000+</div>
+            <div class="stat-label" data-i18n="aboutPage.stat1">Products Sold</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="stat-tile">
+            <div class="stat-kpi">5★</div>
+            <div class="stat-label" data-i18n="aboutPage.stat2">Client Satisfaction</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="stat-tile">
+            <div class="stat-kpi">Warranty</div>
+            <div class="stat-label" data-i18n="aboutPage.stat3">On Eligible Items</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!--This is the review Section*/ -->
+    <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title" data-i18n="sections.testimonialsTitle">What Gamers Say</h2>
+        <p class="section-subtitle" data-i18n="sections.testimonialsSub">5-Star Reviews from Our Community</p>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t1.text">"This is hands down the best retro gaming device I've ever owned. The display is incredible and the battery lasts forever!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JK</div>
+            <div class="author-info">
+              <h4>James Kevin</h4>
+              <p data-i18n="testimonials.t1.role">Gaming Enthusiast</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t2.text">"Perfect quality and the pre-loaded games are amazing. Customer service was excellent and delivery was super fast!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SK</div>
+            <div class="author-info">
+              <h4>Sarah K.</h4>
+              <p data-i18n="testimonials.t2.role">Verified Buyer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t3.text">"Worth every penny! Feels premium, plays smooth, and brings back all the childhood memories. Highly recommended!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MC</div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p data-i18n="testimonials.t3.role">Retro Gaming Fan</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t3.text">"Worth every penny! Feels premium, plays smooth, and brings back all the childhood memories. Highly recommended!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MC</div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p data-i18n="testimonials.t3.role">Retro Gaming Fan</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t3.text">"Worth every penny! Feels premium, plays smooth, and brings back all the childhood memories. Highly recommended!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MC</div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p data-i18n="testimonials.t3.role">Retro Gaming Fan</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text" data-i18n="testimonials.t3.text">"Worth every penny! Feels premium, plays smooth, and brings back all the childhood memories. Highly recommended!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MC</div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p data-i18n="testimonials.t3.role">Retro Gaming Fan</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer" id="contact">
+    <div class="footer-glow"></div>
+    <div class="footer-content">
+      <div class="container">
+        <div class="row g-4 mb-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-brand">
+              <h3><i class="fas fa-joystick me-2"></i>Retro Station</h3>
+              <p data-i18n="footer.brandDesc">Your ultimate destination for premium retro gaming devices and accessories.</p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 col-sm-6 footer-section">
+            <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+              <li><a href="index.html#products" data-i18n="nav.products">Products</a></li>
+              <li><a href="index.html#specs" data-i18n="footer.features">Features</a></li>
+              <li><a href="index.html#testimonials" data-i18n="footer.reviews">Reviews</a></li>
+              <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+              <li><a href="about.html" data-i18n="nav.about">About</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-6 footer-section">
+            <h4 data-i18n="footer.support">Support</h4>
+            <ul class="footer-links">
+              <li><a href="#" data-i18n="footer.faq">FAQ</a></li>
+              <li><a href="#" data-i18n="footer.warranty">Warranty</a></li>
+              <li><a href="#" data-i18n="footer.returns">Returns</a></li>
+              <li><a href="contact.html" data-i18n="footer.contactUs">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-section">
+            <h4 data-i18n="footer.contactInfo">Contact Info</h4>
+            <p style="color: var(--text-light); margin-bottom: 0.8rem;">
+              <i class="fas fa-phone me-2"></i><a href="tel:+9647809643675" data-store-phone style="color: var(--primary-cyan); text-decoration: none;">+964 780 964 3675</a>
+            </p>
+            <p style="color: var(--text-light); margin-bottom: 0.8rem;">
+              <i class="fas fa-envelope me-2"></i><a href="mailto:support@retrostation.com" style="color: var(--primary-cyan); text-decoration: none;">support@retrostation.com</a>
+            </p>
+            <p style="color: var(--text-light);">
+              <i class="fas fa-map-marker-alt me-2"></i>123 Gaming Street, TX 75001
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p><span data-i18n="footer.rightsFull">© 2025 Retro Station. All rights reserved. |</span> <a href="#" style="text-decoration: none; color: var(--primary-cyan);" data-i18n="footer.privacy">Privacy Policy</a> | <a href="#" style="text-decoration: none; color: var(--primary-cyan);" data-i18n="footer.terms">Terms of Service</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/i18n.js"></script>
+  <script src="./js/store.js"></script>
+
+ <script>
+    // Active nav link (kept)
+    document.addEventListener("DOMContentLoaded", () => {
+      const navLinks = document.querySelectorAll(".navbar .nav-link");
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          navLinks.forEach(l => l.classList.remove("active"));
+          link.classList.add("active");
+        });
+      });
+    });
+
+    // Smooth scroll for internal sections (kept)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+
+        // ✅ Don't block external pages like cart.html
+        if (!href || href === "#" || !href.startsWith("#")) return;
+
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+  <script>
+    // Pixel subtitle handled by i18n.js applyTranslations
+  </script>
+
+</body>
+</html>
